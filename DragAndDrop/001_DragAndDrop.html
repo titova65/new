@@ -35,7 +35,7 @@
 			var source = document.getElementById("source");
 
 	        //начало операции drag
-	        source.addElementListener('dragstart',function (evt) {
+	        source.addEventListener('dragstart',function (evt) {
 	        	this.style.border = "3px dotted #000";//меняем стиль в начале операции drag & drop
 
 	        	//Свойство effectAllowed упралляет визуальным эффектом ( чаще всего это вид указателя мыши),который браузер создает в ответ
@@ -47,35 +47,35 @@
 
  		    },false );
  		    //конец операции drag
- 		    source.addElementListener('dragend',function (evt) {
+ 		    source.addEventListener('dragend',function (evt) {
  		    	this.style.border = "";//удаляем стили добавленные в начале операции drag & Drop
  		    }, false);
 
  		    var target = document.getElementById("target");
 
  		    //перетаскиваемый объект попадает в область целевого элемента
- 		    target.addElementListener('dragenter',function (evt) {
+ 		    target.addEventListener('dragenter',function (evt) {
 	        	this.style.border = "3px solid red";
 	        }, false);
 
 	        //перетаскиваемый элемент покидает область целевого элемента
              
-             target.addElementListener('dragleave',function (evt) {
+             target.addEventListener('dragleave',function (evt) {
 	        	this.style.border = "";
 	        }, false);
 
-             target.addElementListener("dragover", function (evt) {
+             target.addEventListener("dragover", function (evt) {
              	//отменяем стандартное обработчик события dragover.
              	//реализация данного обработчика по умолчанию не позволяет перетаскивать данные на целевой элемент,так как большая часть веб страницы не может принимать данные.
              	//Для того чтобы элемент мог прмнять перетаскиваемые данные необходимо отменить стандартный обработчик.
-               if (evt.prevent.Default) evt.preventDefault();
+               if (evt.preventDefault) evt.preventDefault();
                return false;
              }, false);
              //перетаскиваемый элемент отпущен над целевым элементом
-              target.addElementListener("drop", function (evt) {
+              target.addEventListener("drop", function (evt) {
 
               	//прекращаем дальнейшее распространение события по дереву DOM и отменяем возможный стандартный обрабоечик браузером.
-               if (evt.prevent.Default) evt.preventDefault();
+               if (evt.preventDefault) evt.preventDefault();
                 if (evt.stopPropagation) evt.stopPropagation();
 
                 this.style.border = "";
@@ -94,7 +94,9 @@
 	</script>
 </head>
 <body>
-	<!--для того чтобы активировать возможность переносить данные необходимо установить атрибут draggable
+	<!--для того чтобы активировать возможность переносить данные необходимо установить атрибут draggable и создать обработчик на событие dragstart-->
+	<div id="source" draggable="true">Этот элемент</div>
+	<div id="target">Перенести в эту область</div>
 	
 </body>
 </html>
