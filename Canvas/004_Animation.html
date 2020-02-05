@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Анимация Canvas</title>
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+		}
+		canvas {
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="578" height="200"></canvas>
+	<script>
+		//https://deveLoper.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame
+		//requestAnimationFrame - метод,который указываетбраузеру что наш код хочет выполнить анимацию
+		//и запрашивает вызов callback функции перед следующей перерисовкой.
+		window.requestFrame = function (callback) {
+			// переменная f будет содержать ту функцию, для запроса отрисовки одного кадра,
+			//которую поддерживает текущий браузер.
+			var f = window.mozRequestAnimationFrame ||
+			     window.requestAnimationFrame ||
+			     window.webkitRequestAnimationFrame ||
+			     function (callback) {
+			     	window.setTimeout(callback, 500);
+			     }
+
+			 f(callback);
+		};
+
+		// ункция которая рисует прямоугольник
+		//первый параметр - объект определяющий размеры прямоугольника
+		//второй параметр - контекст канваса на котором будет произведено рисование
+
+		function drawRectangle(rect,context) {
+			context.beginPath();
+			context.rect(rect.x, rect.y, rect.width, rect.height);
+			context.fillStyle = 'green';
+			context.fill();
+			context.lineWidth = rect.border.Width;
+			context.strokeStyle = 'black';
+			context.stroke();
+			
+		}
+		function animate(rect,canvas,context,startTime) {
+			//определяет разницу между текущим временем и временем начала анимации.
+			var time = (new Date()).getTime() - startTime;
+
+			var linearSpeed = 100;
+
+			//pixels / second
+			var newX = linearSpeed * time / 1000;
+		}
+	</script>
+
+</body>
+</html>
