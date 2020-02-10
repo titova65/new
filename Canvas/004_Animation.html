@@ -40,7 +40,7 @@
 			context.rect(rect.x, rect.y, rect.width, rect.height);
 			context.fillStyle = 'green';
 			context.fill();
-			context.lineWidth = rect.border.Width;
+			context.lineWidth = rect.borderWidth;
 			context.strokeStyle = 'black';
 			context.stroke();
 			
@@ -53,7 +53,35 @@
 
 			//pixels / second
 			var newX = linearSpeed * time / 1000;
+
+			//меняем свойство x объекта прямоугольника до тех пор пока он не дойдет до правого края канваса
+			if (newX < canvas.width - rect.width - rect.borderWidth / 2) { 
+				rect.x = newX;
 		}
+		//очищаем канвас
+		context.clearRect(0,0,canvas.width, canvas.height);
+		//рисуем прямоугольник с учетом измененной координаты x
+		drawRectangle(rect,context);
+		
+		//запрашиваем новый фрейм
+		requestFrame(function () {
+			animate(rect,canvas, context,startTime);
+		});
+	}
+	var canvas = document.getElementById('myCanvas');
+	var context = canvas.getContext('2d');
+
+	var rect = {
+		x: 0,
+		y: 75,
+		width: 100,
+		height: 50,
+		borderWidth: 5
+	};
+
+	drawRectangle(rect,context);
+	animate(rect, canvas, context, new Date().getTime());
+
 	</script>
 
 </body>
