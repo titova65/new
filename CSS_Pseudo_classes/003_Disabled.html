@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>disabled</title>
+	<style>
+		/*disabled- псевдокласс для получения не активных элементов форм */
+		textarea:disabled {
+			background: url(border.png);
+			border: 1pz solid #666;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<textarea cols="30" rows="5">
+			Это заблокированное поле, в него нельзя ничего писить
+		</textarea>
+
+		<textarea disabled cols="30" rows="5">
+			Это заблокированное поле, в него ничего писать
+		</textarea>
+	</form>
+
+</body>
+</html>
